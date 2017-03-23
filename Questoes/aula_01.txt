@@ -1,0 +1,18 @@
+1. O que são sistemas embarcados?
+São computadores (software e hardware) criados para uma aplicação específica.
+
+2. O que são sistemas microprocesssados?
+É a parte fundamental de um circuito integrado, ou seja, a ULA, unidade de controle, registradores. É a parte capaz de tomar decisões e realizar cálculos.
+
+3. Apresente aplicações de sistemas embarcados:
+	(a) Para a indústria automotiva;
+Freio abs, gps, air bag, alarme.
+	(b) Para eletrodomésticos;
+Máquina de lavar, microondas, tv.
+	(c) Para automação industrial.
+Sistemas robóticos, veículos espaciais.
+
+4. Cite arquiteturas possíveis e as diferenças entre elas.
+Arquitetura de Von Neumann e de Harvard. A principal diferente entre as duas arquiteturas está no barramento. A arquitetura de Harvard conta com dois barramentos externos, o que significa que o armazenamento e o trafego das instruções e dos dados são separados. Já na arquitetura de Von Neumann o barramento externo é único, utilizando o mesmo espaço de memória.
+
+5. Por que usamos o Raspberry Pi na disciplina, ao invés de outro system-on-chip?
