@@ -51,3 +51,4 @@ Somente uma thread será executada por vez. Quando t1 for criada, em seguida já
   
   *Dúvida: thread original é a main?
 (DICA: elas são relacionadas à função pthread_cancel().)
+.
