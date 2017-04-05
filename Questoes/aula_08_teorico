@@ -1,0 +1,53 @@
+Data: 30/03/2017
+
+3. Quais são as vantagens e desvantagens em utilizar:
+	(a) fork?
+	(b) threads?
+  As threads tem como vantagem a possibilidade de executar simultaneamente, dentro de um programa, várias operações.
+  A simultaneidade não acontece de fato. Uma thread pode ser pausada para outra ser processada, assim todas irão ser processadas.
+  A comunicação entre threads é mais rápida, porque as threads compartilham a mesma memória, ou seja, mesmo endereçamento, variáveis
+globais.
+Uma desvantagem é que existe um risco de corrupção de dados.
+2. Quantas threads serão criadas após as linhas de código a seguir? Quantas coexistirão? Por quê?
+	(a)
+		void* funcao_thread_1(void *arg);
+		void* funcao_thread_2(void *arg);
+		
+		int main (int argc, char** argv)
+		{
+			pthread_t t1, t2;
+			pthread_create(&t1, NULL, funcao_thread_1, NULL); /*cria a função para t1*/
+			pthread_create(&t2, NULL, funcao_thread_2, NULL); /*cria a função para t2*/
+			pthread_join(t1, NULL); /*espera o término da t1*/
+			pthread_join(t2, NULL); /*espera o término da t2, não necessariamente nessa ordem t1 > t2*/
+			return 0;
+		}
+2 threads serão criadas (t1, t2). 2 coexistirão. As duas threads coexistirão enquanto a função main estiver em execução, isso acontece por 
+causa da chamada da função pthread_join() que serve para fazer t1 e t2 esperar até o término. As duas threads são encerradas 
+"simultaneamente" até a thread original ser encerrada.
+*DÚVIDA = não tenho certeza se main é uma thread nesse caso.
+(b)
+		void* funcao_thread_1(void *arg);
+		void* funcao_thread_2(void *arg);
+		
+		int main (int argc, char** argv)
+		{
+			pthread_t t1, t2;
+			pthread_create(&t1, NULL, funcao_thread_1, NULL); /*cria função para t1*/
+			pthread_join(t1, NULL); /*t1 espera seu encerramento*/
+			pthread_create(&t2, NULL, funcao_thread_2, NULL);/*cria função para t2*/
+			pthread_join(t2, NULL);/*t2 espera seu encerramento*/
+			return 0;
+		}
+2 threads serão criadas. Primeiro é criada a função para t1, logo após já é chamada a função join que espera o encerramento da thread t1.
+Depois há a criação da função para t2, e logo após a função join encerra t2.
+Somente uma thread será executada por vez. Quando t1 for criada, em seguida já é encerrada, logo, ela não coexiste com t2.
+
+3. Apresente as características e utilidades das seguintes funções:
+	(a) pthread_setcancelstate()
+  A função acima seta para '1' a função ENABLE permitindo que se cancele uma thread.
+	(b) pthread_setcanceltype()
+  A função acima seta para '1' a função DEFERRED permitindo que adie o cancelamento da thread.
+  
+  *Dúvida: thread original é a main?
+(DICA: elas são relacionadas à função pthread_cancel().)
