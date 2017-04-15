@@ -3,58 +3,67 @@ Data: 09/03/2017
 1. Por que o Linux recebeu esse nome?
 A origem se deve ao nome do criador, Linus Torvalds.
 
-2. O que s„o daemons?
-Daemon È um programa que È executado continuamente em "segundo plano", servindo para manipular serviÁos periÛdicos, sendo ativado sempre que necess·rio.
+2. O que s√£o daemons?
+Daemon √© um programa que √© executado continuamente em "segundo plano", servindo para manipular servi√ßos peri√≥dicos, sendo ativado sempre que necess√°rio.
 
-3. O que È o shell?
-InteraÁ„o do usu·rio com o sistema por comandos; interpretador de comandos.
+3. O que √© o shell?
+Intera√ß√£o do usu√°rio com o sistema por comandos; interpretador de comandos.
 
-4. Por que È importante evitar executar o terminal como super-usu·rio?
+4. Por que √© importante evitar executar o terminal como super-usu√°rio?
 Para evitar a perda de dados.
 
-5. Qual bot„o do teclado completa o que o usu·rio escreve no terminal, de acordo com o contexto?
+5. Qual bot√£o do teclado completa o que o usu√°rio escreve no terminal, de acordo com o contexto?
 Tab
 
-6. Quais botıes do teclado apresentam instruÁıes escritas anteriormente?
+6. Quais bot√µes do teclado apresentam instru√ß√µes escritas anteriormente?
 Setas para cima e para baixo.
 
 7. Apresente os respectivos comandos no terminal para:
-  (a) Obter mais informaÁıes sobre um comando.
+  (a) Obter mais informa√ß√µes sobre um comando.
 man
   (b) Apresentar uma lista com os arquivos dentro de uma pasta.
 ls
   (c) Apresentar o caminho completo da pasta.
 pwd
   (d) Trocar de pasta.
-cd
+$ cd nome_do_diretorio
+Para voltar para o diretorio anterior, basta escrever:
+$ cd
+E para ir para outro diret√≥rio, basta escrever:
+$ cd nome_do_outro_diretorio
   (e) Criar uma pasta.
-mkdir
+mkdir nome_do_diretorio
   (f) Apagar arquivos definitivamente.
-rm
+rm 
   (g) Apagar pastas definitivamente.
-rmdir
+rmdir ou rm -r
   (h) Copiar arquivos.
-cp
+cp nome_do_arquivo nome_novo_do_arquivo
+cp nome_do_arquivo.txt nome_do_arquivo.txt (windows)
   (i) Copiar pastas.
-cp -r
+cp -r nome_pasta novo_nome_pasta
   (j) Mover arquivos.
-mv
-  (k) Mover pastas.
-mv
+mv nomedoarquivo nomedapasta
+  (k) Mover pastas. (serve para mover apenas no m esmo diret√≥rio, sen√£o renomeia)
+mv nome_pasta pasta_destino
   (l) Renomear pastas.
-mv
-  (m) Apresentar o conte˙do de um arquivo.
-cat nomedoarquivo
-
+mv nome_arquivo novo_nome
+  (m) Apresentar o conte√∫do de um arquivo.
+cat nomedoarquivo.(formato)
   (n) Apresentar o tipo de um arquivo.
 file
   (o) Limpar a tela do terminal.
 clear
-  (p) Encontrar ocorrÍncias de palavras-chave em um arquivo-texto.
-grep
-  (q) Ordenar informaÁıes em um arquivo-texto.
-sort
-  (r) Substituir ocorrÍncias de palavras-chave em um arquivo-texto.
-  (s) Conferir se dois arquivos s„o iguais.
-diff
+  (p) Encontrar ocorr√™ncias de palavras-chave em um arquivo-texto.
+grep palavra-chave nome_arquivo.txt
+grep palavra-chave *formato
+exemplo:
+$ grep po *txt
+  (q) Ordenar informa√ß√µes em um arquivo-texto.
+sort nome_arquivo.(formato) (em ordem alfab√©tica ou para n√∫meros)
+  (r) Substituir ocorr√™ncias de palavras-chave em um arquivo-texto.
+ sed -i s/palavra/outrapalavra arquivo.txt [DEU ERRADO]
+  (s) Conferir se dois arquivos s√£o iguais.
+diff nomearquivo.txt nomeoutroarquivo.txt
   (t) Escrever algo na tela.
+  echo qualquer_palavra
