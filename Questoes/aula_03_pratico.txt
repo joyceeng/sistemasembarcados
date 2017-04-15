@@ -273,4 +273,4 @@ $ make clean
 $ ./questao_11 Joyce Santos
 
 No terminal:
-
+Numero de caracteres: 12
