@@ -1,0 +1,276 @@
+1. Crie um "Olá mundo!" em C.
+
+#include <stdio.h>
+
+int main(){
+
+	printf("Ola mundo!\n");
+
+return 0;
+}
+
+2. Crie um código em C que pergunta ao usuário o seu nome, e imprime no terminal "Ola " e o nome do usuário. Por exemplo, considerando que o código criado recebeu o nome de 'ola_usuario_1':
+
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+char nome[20];
+	printf("Digite o seu nome:\n");
+	scanf ("%s", nome);
+
+	printf ("Ola, %s.", nome);
+
+return 0;
+}
+
+
+Para compilação do arquivo, os seguintes comandos foram usados:
+
+$ pwd
+$ cd Documentos
+$ gcc questao_02.c -o questao2
+$ ./questao2
+
+
+No terminal:
+Digite o seu nome: 
+Joyce
+Ola, Joyce.
+
+3. Apresente os comportamentos do código anterior nos seguintes casos:
+(a) Se o usuário insere mais de um nome.
+		Digite o seu nome: Joyce Santos
+		Ola, Joyce.
+	(b) Se o usuário insere mais de um nome entre parênteses. 
+		Digite o seu nome:
+		'Ola, "Joyce.
+	(c) Se é usado um pipe. Por exemplo:
+		$ echo Joyce | ./questao2
+		Digite o seu nome:
+		Ola, Joyce.
+	(d) Se é usado um pipe com mais de um nome. Por exemplo:
+		$ echo Joyce Santos | ./questao2
+		Digite o seu nome: 
+		Ola, Joyce.
+	(e) Se é usado um pipe com mais de um nome entre parênteses. Por exemplo:
+		$ echo "Joyce Santos" | ./questao2
+		Digite o seu nome:
+		Ola, Joyce.
+	(f) Se é usado o redirecionamento de arquivo. Por exemplo:
+
+$ echo Ola mundo cruel! > ola.txt
+$ ./questao2 < ola.txt
+
+Um arquivo ola.txt é criado no diretório atual e dentro dele contém a mensagem "Ola mundo cruel!".
+A seguinte mensagem aparece:
+Digite o seu nome: Ola, ola
+
+
+4.Crie um código em C que recebe o nome do usuário como um argumento de entrada (usando as variáveis argc e *argv[]), e imprime no terminal "Ola " e o nome do usuário. Por exemplo, considerando que o código criado recebeu o nome de 'ola_usuario_2':
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char **argv){
+char nome[20];
+	printf("Digite o seu nome:");
+	scanf ("%s", nome);
+
+	printf ("Ola, %s", nome);
+
+return 0;
+}
+
+Para compilação:
+$ gcc questao_04.c -o questao4
+$ ./questao4
+
+No terminal:
+Digite o seu nome: Joyce
+Ola, Joyce
+
+5. Apresente os comportamentos do código anterior nos seguintes casos:
+	(a) Se o usuário insere mais de um nome.
+		Digite o seu nome: Joyce Santos
+		Ola, Joyce.
+	(b) Se o usuário insere mais de um nome entre parênteses. Por exemplo:
+		Digite o seu nome: "Joyce Santos"
+		Ola, "Joyce.
+	(c) Se é usado um pipe. Por exemplo:
+		$ echo Joyce | ./questao5
+		Digite o seu nome:
+		Ola, Joyce.
+	(d) Se é usado um pipe com mais de um nome. Por exemplo:
+		$ echo Joyce Santos | ./questao5
+		Digite o seu nome:
+		Ola, Joyce.
+	(e) Se é usado um pipe com mais de um nome entre parênteses. Por exemplo:
+		$ echo "Joyce Santos" | ./questao5
+		Digite o seu nome: Joyce
+		Ola, Joyce.
+	(f) Se é usado o redirecionamento de arquivo. Por exemplo:
+		$ echo Ola mundo cruel! > ola.txt
+		$ ./questao4 < ola.txt
+Um arquivo ola.txt é criado no diretório atual e dentro dele contém a mensagem "Ola mundo cruel!".
+A seguinte mensagem aparece:
+Digite o seu nome: Ola, ola
+ 
+
+6. Crie um código em C que faz o mesmo que o código da questão 4, e em seguida imprime no terminal quantos valores de entrada foram fornecidos pelo usuário. Por exemplo, considerando que o código criado recebeu o nome de 'ola_usuario_3':
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]){
+
+	printf ("Numero de entradas: %d\n", argc);
+	printf ("Ola, %s\n", argv[argc - 1]);
+
+return 0;
+}
+
+
+No terminal:
+$ ./questao6 Joyce Santos
+
+Na tela:
+Numero de entradas: 3
+Ola, Santos
+
+7. Crie um código em C que imprime todos os argumentos de entrada fornecidos pelo usuário. Por exemplo, considerando que o código criado recebeu o nome de 'ola_argumentos':
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]){
+
+int i;
+
+printf ("Argumentos:");
+
+for (i = 0; i <= (argc - 1); i++){
+printf (" %s ", argv[i]);
+
+}
+
+return 0;
+}
+
+No terminal:
+$ ./questao_07 oi professor
+Argumentos: C:\Users\Joyce\Desktop\SistemasEmbarcados\C\Aula3\questao_07.exe  oi professor
+
+8. Crie uma função que retorna a quantidade de caracteres em uma string, usando o seguinte protótipo: *
+
+	int Num_Caracs(char *string);
+
+Salve-a em um arquivo separado chamado 'num_caracs.c'. Salve o protótipo em um arquivo chamado 'num_caracs.h'. Compile 'num_caracs.c' para gerar o objeto 'num_caracs.o'.
+
+num_caracs:
+
+#include<stdio.h>
+
+	int Num_Caracs(char *string){
+		int i=0;
+		while(string[i] != '\0')
+			i++;
+		return i;
+	}
+Para compilar:
+$ gcc -c num_caracs.c
+
+9. Re-utilize o objeto criado na questão 8 para criar um código que imprime cada argumento de entrada e a quantidade de caracteres de cada um desses argumentos.
+
+num_caracs2:
+
+#include <stdio.h>
+#include "num_caracs.h"
+
+int main(int argc, char *string[]){
+
+int i;
+for (i = 0; i < argc; i++){
+	printf ("Argumentos: %s\nNumero de caracteres: %d\n", string[i], Num_Caracs(string[i]));
+}
+
+	return 0;
+}
+Para compilar: 
+$ gcc num_caracs2.c num_caracs.o
+$ ./a.out arroz
+No terminal:
+Argumento: C:\Users\Joyce\Desktop\SistemasEmbarcados\C\Aula3\a.exe / Numero de caracteres: 55
+Argumento: arroz / Numero de caracteres: 5
+
+10. Crie um Makefile para a questão anterior.
+
+Makefile:
+main: main_8.o num_caracs.o
+	gcc main_8.o num_caracs.o -o main_8
+main_8.o: main_8.c
+	gcc -c main_8.c
+num_caracs.o: num_caracs.c num_caracs.h
+	gcc -c num_caracs.h
+clean:
+	rm *.o
+	
+Para compilar:
+	$ make
+	$ make clean
+	$ ./main_8 Joyce Santos
+	
+No terminal:
+
+$ Argumentos: ./main_8
+$ Numero de caracteres: 8
+$ Argumentos: Joyce
+$ Numero de caracteres: 5
+$ Argumentos: Santos
+$ Numero de caracteres: 5
+	
+11. Re-utilize o objeto criado na questão 8 para criar um código que imprime o total de caracteres nos argumentos de entrada. Por exemplo, considerando que o código criado recebeu o nome de 'ola_num_caracs_2':
+
+#include <stdio.h>
+#include "num_caracs.h"
+
+int main(int argc, char *string[]){
+
+int i, c;
+for (i = 0; i < argc; i++){
+
+	c = c + Num_Caracs(string[i]);
+}
+
+	printf ("Numero de caracteres: %d\n", c);
+
+	return 0;
+}
+
+Para compilar: 
+$ gcc -c num_caracs.c
+$ gcc questao_11.c num_caracs.o
+$ ./a.out Joyce
+
+No terminal:
+Numero de caracteres: 12
+
+
+12. Crie um Makefile para a questão anterior.
+Makefile: (Criou-se em outra pasta)
+main: questao_11.o num_caracs.o
+	gcc questao_11.o num_caracs.o -o questao_11
+questao_11.o: questao_11.c
+	gcc -c questao_11.c
+num_caracs.o: num_caracs.c num_caracs.h
+	gcc -c num_caracs.h
+clean:
+	rm *.o
+	
+Para compilar:
+$ make
+$ make clean
+$ ./questao_11 Joyce Santos
+
+No terminal:
+
