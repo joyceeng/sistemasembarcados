@@ -1,0 +1,88 @@
+Para todas as questões, escreva os comandos correspondentes no terminal.
+ 
+ 1. Escreva o texto "Ola mundo cruel!" em um arquivo denominado "Ola_mundo.txt". Apresente o conteúdo deste arquivo no terminal.
+
+$ echo "Ola mundo cruel!" > Ola_mundo.txt
+ 2. Apresente o nome de todos os arquivos e pastas na pasta 'root'.
+ 
+ 3. Apresente o tipo de todos os arquivos e pastas na pasta 'root'.
+ 
+ 4. Apresente somente as pastas dentro da pasta 'root'.
+ 
+ 5. Descubra em que dia da semana caiu o seu aniversário nos últimos dez anos.
+cal mes ano 
+ 
+ Para as questões a seguir, use a pasta no endereço https://github.com/DiogoCaetanoGarcia/Sistemas_Embarcados/raw/master/Questoes/Arqs_aula_02.zip
+ 
+ 6. Liste somente os arquivos com extensão .txt.
++$ ls -l *.txt
++-rw-r--r-- 1 Joyce 197121 2003 mar  9 15:31 arquivo.txt
++-rw-r--r-- 1 Joyce 197121  140 mar  9 15:31 cal.txt
++-rw-r--r-- 1 Joyce 197121 2014 mar  9 15:33 cal_1990.txt
++-rw-r--r-- 1 Joyce 197121 1984 mar  9 15:33 cal_1991.txt
++-rw-r--r-- 1 Joyce 197121 1968 mar  9 15:33 cal_1992.txt
++-rw-r--r-- 1 Joyce 197121 1980 mar  9 15:33 cal_1993.txt
++-rw-r--r-- 1 Joyce 197121 1992 mar  9 15:33 cal_1994.txt
++-rw-r--r-- 1 Joyce 197121 2003 mar  9 15:33 cal_1995.txt
++-rw-r--r-- 1 Joyce 197121 1984 mar  9 15:33 cal_1996.txt
++-rw-r--r-- 1 Joyce 197121 1976 mar  9 15:33 cal_1997.txt
++-rw-r--r-- 1 Joyce 197121 1968 mar  9 15:33 cal_1998.txt
++-rw-r--r-- 1 Joyce 197121 1980 mar  9 15:33 cal_1999.txt
++-rw-r--r-- 1 Joyce 197121 2003 mar  9 15:33 cal_2000.txt
++-rw-r--r-- 1 Joyce 197121 2014 mar  9 15:33 cal_2001.txt
++-rw-r--r-- 1 Joyce 197121 1984 mar  9 15:33 cal_2002.txt
++-rw-r--r-- 1 Joyce 197121 1976 mar  9 15:33 cal_2003.txt
++-rw-r--r-- 1 Joyce 197121 1980 mar  9 15:33 cal_2004.txt
++-rw-r--r-- 1 Joyce 197121 1992 mar  9 15:33 cal_2005.txt
++-rw-r--r-- 1 Joyce 197121 2003 mar  9 15:33 cal_2006.txt
++-rw-r--r-- 1 Joyce 197121 2014 mar  9 15:33 cal_2007.txt
++-rw-r--r-- 1 Joyce 197121 1976 mar  9 15:33 cal_2008.txt
++-rw-r--r-- 1 Joyce 197121 1968 mar  9 15:33 cal_2009.txt
++-rw-r--r-- 1 Joyce 197121 1980 mar  9 15:33 cal_2010.txt
++-rw-r--r-- 1 Joyce 197121 1992 mar  9 15:33 cal_2011.txt
++-rw-r--r-- 1 Joyce 197121 2014 mar  9 15:33 cal_2012.txt
++-rw-r--r-- 1 Joyce 197121 1984 mar  9 15:33 cal_2013.txt
++-rw-r--r-- 1 Joyce 197121 1976 mar  9 15:33 cal_2014.txt
++-rw-r--r-- 1 Joyce 197121 1968 mar  9 15:33 cal_2015.txt
++-rw-r--r-- 1 Joyce 197121 1992 mar  9 15:33 cal_2016.txt
++-rw-r--r-- 1 Joyce 197121 2003 mar  9 15:33 cal_2017.txt
++-rw-r--r-- 1 Joyce 197121 2014 mar  9 15:33 cal_2018.txt
++-rw-r--r-- 1 Joyce 197121 1984 mar  9 15:33 cal_2019.txt
++-rw-r--r-- 1 Joyce 197121 1968 mar  9 15:33 cal_2020.txt
++-rw-r--r-- 1 Joyce 197121  775 mar  9 15:34 cal_types.txt
++
+ 
+ 7. Liste somente os arquivos com extensão .png.
++$ ls -l *.png
++-rw-r--r-- 1 Joyce 197121 49724 mar  9 15:36 BusinessTux.png
++-rw-r--r-- 1 Joyce 197121 10853 mar  9 15:36 linux.png
++-rw-r--r-- 1 Joyce 197121 47437 mar  9 15:36 linux_inside.png
++-rw-r--r-- 1 Joyce 197121 46934 mar  9 15:37 linux1.png
++-rw-r--r-- 1 Joyce 197121 23797 mar  9 15:37 linux2.png
++-rw-r--r-- 1 Joyce 197121 10853 mar  9 15:36 linux3.png
++-rw-r--r-- 1 Joyce 197121 38463 mar  9 15:37 linux-penguin-icon-39742.png
++-rw-r--r-- 1 Joyce 197121 39972 mar  9 15:37 TUX.png
++-rw-r--r-- 1 Joyce 197121 35110 mar  9 15:37 Tux-in-a-suit.png
++-rw-r--r-- 1 Joyce 197121 42468 mar  9 15:37 tux-linux-professional_0-100520358-orig.png
++-rw-r--r-- 1 Joyce 197121 63742 mar  9 15:37 xanderrun-tux-construction-8454.png
+ 
+ 8. Liste somente os arquivos com extensão .jpg.
+ 
+$ ls -l *.jpg
++-rw-r--r-- 1 Joyce 197121 10711 mar  9 15:37 d36f1a2be6a927ac3e2e1e4eacdedded.jpg
++-rw-r--r-- 1 Joyce 197121 18136 mar  9 15:36 oRva1OGD.jpg
++-rw-r--r-- 1 Joyce 197121 13732 mar  9 15:36 oRva1OGD_400x400.jpg
++-rw-r--r-- 1 Joyce 197121 19454 mar  9 15:36 zz39112bb5.jpg
++
+ 9. Liste somente os arquivos com extensão .gif.
++$ ls -l *.gif
++-rw-r--r-- 1 Joyce 197121 5095 mar  9 15:37 1086970.gif
+ 
+ 10. Liste somente os arquivos que contenham o nome 'cal'.
+-
+ls | grep cal
+ 11. Liste somente os arquivos que contenham o nome 'tux'.
+-
+ls | grep tux
+ 12. Liste somente os arquivos que comecem com o nome 'tux'.
++ls tux*
