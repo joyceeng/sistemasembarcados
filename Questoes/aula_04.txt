@@ -171,6 +171,29 @@ $ gcc -c bib_arqcs.c
 	$ Ola mundo cruel! Ola universo ingrato!
 	$
 
+#include <stdio.h>
+
+int main (char argc, char *string[]){
+int i;
+FILE *fp;
+
+fp = fopen ("arquivo5.txt", "w");
+
+	for (i = 1; string[i]; i++){
+		fputs(string[i], fp);
+		printf ("%s", string[i]);
+	}
+
+return 0;
+
+}
+Para compilar:
+$ gcc questao_06.c -o questao_06
+$ ./questao_06 Ola mundo cruel!
+
+No terminal:
+Ola mundo cruel!
+
 7. Crie um código em C que conta a ocorrência de uma palavra-chave em um arquivo-texto, e escreve o resultado no terminal. Reaproveite as funções já criadas nas questões anteriores. Por exemplo, considerando que o código criado recebeu o nome de 'busca_e_conta':
 	$ echo Ola mundo cruel! Ola universo ingrato! > ola.txt
 	$ ./busca_e_conta Ola ola.txt
