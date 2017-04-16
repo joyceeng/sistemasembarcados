@@ -75,6 +75,39 @@ return 0;
 	$ Nome: Eu
 	$ Idade: 30 anos
 	$
+	
+#include <stdio.h>
+#include <string.h>
+
+int main(char argc, char *argv[]){
+
+FILE *fp;
+int i;
+char c;
+
+fp = fopen ("ola_usuario_2.txt", "w"); /*abrindo arquivo para escrever*/
+
+for (i = 1; argv[i]; i++){
+	fputs(argv[i], fp);
+}
+
+	printf ("Nome: %s", argv[1]);
+	printf ("\nIdade: %s", argv[2]);
+
+fclose(fp);
+
+
+return 0;
+}
+
+Para compilar:
+$ gcc questao_03.c -o questao_03
+
+No terminal:
+$ ./questao_03 Luciana 12
+Nome: Luciana
+Idade: 12
+
 
 4. Crie uma função que retorna o tamanho de um arquivo, usando o seguinte protótipo:
 
@@ -104,6 +137,33 @@ $ gcc -c bib_arqcs.c
 	void le_arq_texto(char *nome_arquivo, char *conteúdo);
 
 Repare que o conteúdo do arquivo é armazenado no vetor 'conteudo[]'. Ou seja, ele é passado por referência. Salve esta função no mesmo arquivo da questão 4, chamado 'bib_arqs.c'. Salve o protótipo no arquivo 'bib_arqs.h'. Compile 'bib_arqs.c' novamente para gerar o objeto 'bib_arqs.o'.
+
+#include <stdio.h>
+
+
+int tam_arq_texto(char *string) /*declara nome da função e pega string da main*/{
+		int i=0;
+		while(string[i] != '\0') /*enquanto não encontra o fim do arquivo, a variável i vai somando os caracteres*/
+			i++;
+		return i;
+}
+
+void le_arq_texto(char *arquivo5, char *string){
+int i;
+FILE *fp;
+
+fp = fopen ("arquivo5.txt", "r");
+
+gets(string);
+
+	for (i = 0; string[i]; i++){
+		putc(string[i], fp);
+
+	}
+}
+
+Para compilar: 
+$ gcc -c bib_arqcs.c
 
 6. Crie um código em C que copia a funcionalidade básica do comando 'cat': escrever o conteúdo de um arquivo-texto no terminal. Reaproveite as funções já criadas nas questões anteriores. Por exemplo, considerando que o código criado recebeu o nome de 'cat_falsificado':
 	$ echo Ola mundo cruel! Ola universo ingrato! > ola.txt
