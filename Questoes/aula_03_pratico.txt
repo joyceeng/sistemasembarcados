@@ -1,5 +1,4 @@
-﻿teste teste teste
-1. Crie um "Olá mundo!" em C.
+﻿1. Crie um "Olá mundo!" em C.
 
 #include <stdio.h>
 
