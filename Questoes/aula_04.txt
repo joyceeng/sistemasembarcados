@@ -82,6 +82,23 @@ return 0;
 
 Salve esta função em um arquivo separado chamado 'bib_arqs.c'. Salve o protótipo em um arquivo chamado 'bib_arqs.h'. Compile 'bib_arqs.c' para gerar o objeto 'bib_arqs.o'.
 
+#include <stdio.h>
+
+int tam_arq_texto(char *string) /*declara nome da função e pega string da main*/{
+		int i=0;
+		while(string[i] != '\0') /*enquanto não encontra o fim do arquivo, 
+
+a variável i vai somando os caracteres*/
+			i++;
+		return i;
+	}
+
+Criou-se o arquivo bib_arqcs.h:
+int tam_arq_texto(char *nome_arquivo);
+
+Para compilar:
+$ gcc -c bib_arqcs.c
+
 5. Crie uma função que lê o conteúdo de um arquivo-texto e o guarda em uma string, usando o seguinte protótipo:
 
 	void le_arq_texto(char *nome_arquivo, char *conteúdo);
