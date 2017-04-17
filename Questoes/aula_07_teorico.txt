@@ -13,9 +13,12 @@ Data: 30/03/2017
 		pid = fork(); /*criacao do processo filho*/
 		pipe(fd); /*criacao do pipe*/
     
-    R: Somente 1 pipe, porque a copia do processo pai é feita antes da criacao do pipe, entao pipe nao e duplicado.
+    R: Somente 1 pipe, porque a copia do processo pai é feita antes da criacão do pipe, então pipe não é duplicado.
     
 2. Apresente mais cinco sinais importantes do ambiente Unix, além do SIGSEGV, SIGUSR1, SIGUSR2, SIGALRM e SIGINT. Quais são suas características e utilidades?
+SIGHUP - envia ao processo um sinal quando o terminal é fechado.
+SIGQUIT - sinal emitido a partir do teclado.
+SIGSTOP - parar um processo.
 
 3. Considere o código a seguir:
 
