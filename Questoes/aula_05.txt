@@ -53,3 +53,7 @@ Data: 23/03/2017
 	off_t lseek(int fd, off_t offset, int whence); /*offset (-1 se der erro), nome do arquivo, valor de offset (deve ser nro de bytes, SEEK_SET ou SEEK_CUR ou SEEK_END)*/
 	Exemplo:
 	(e) Quais bibliotecas devem ser incluídas no código para poder utilizar as funções acima?
+	#include <stdio.h> /* para funcao printf*/
+	#include <fcntl.h> /* para funcao open()*/
+	#include <unistd.h> /* para funcao close()*/
+	#include <stdlib.h> /* para funcao exit()*/
