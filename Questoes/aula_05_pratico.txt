@@ -124,6 +124,31 @@ Salve esta função em um arquivo separado chamado 'bib_arqs.c'. Salve o protót
 
 'bib_arqs.o'.
 
+tam_arq_texto:
+
+#include <stdio.h>
+#include <fcntl.h> /* para funcao open()*/
+#include <unistd.h> /* para funcao close()*/
+#include <stdlib.h> /* para funcao exit()*/
+#include "bib_arcs.h"
+
+
+
+int tam_arq_texto(char *string) /*declara nome da função e pega string da main*/{
+	int i = 0;
+	int fp;
+	int c;
+
+	fp = open (string, O_WRONLY | O_CREAT, S_IRWXU);
+		while(read (fp, &c, sizeof(c) != 0)) /*enquanto não encontra o fim do arquivo, a variável i vai somando os caracteres*/
+			i++;
+		return i;
+close(fp);
+}
+
+Para compilar:
+$ gcc -c bib_arqcs.c
+
 5. Crie uma função que lê o conteúdo de um arquivo-texto e o guarda em uma string, usando o seguinte protótipo:
 
 	void le_arq_texto(char *nome_arquivo, char *conteúdo);
@@ -131,6 +156,63 @@ Salve esta função em um arquivo separado chamado 'bib_arqs.c'. Salve o protót
 Repare que o conteúdo do arquivo é armazenado no vetor 'conteudo[]'. Ou seja, ele é passado por referência. Salve esta função no mesmo arquivo da questão 4, chamado 
 
 'bib_arqs.c'. Salve o protótipo no arquivo 'bib_arqs.h'. Compile 'bib_arqs.c' novamente para gerar o objeto 'bib_arqs.o'.
+
+#include <stdio.h>
+#include <fcntl.h> /* para funcao open()*/
+#include <unistd.h> /* para funcao close()*/
+#include <stdlib.h> /* para funcao exit()*/
+#include "bib_arcs.h"
+
+
+int tam_arq_texto(char *string[]) /*declara nome da função e pega string da main*/{
+
+	int fp;
+	int i = 0;
+	char c;
+
+	fp = open (string, O_WRONLY | O_CREAT, S_IRWXU);
+		while(read (fp, &c, sizeof(c) != 0){ /*enquanto não encontra o fim do arquivo, a variável i vai somando os caracteres*/
+			i++;
+		}
+		return i;
+close(fp);
+}
+
+void le_arq_texto(char *string, char *conteudo){
+
+int i;
+int fp;
+char c;
+
+fp = open (string, O_WRONLY | O_CREAT, S_IRWXU);
+
+while (read(fp, &c, sizeof(c) != 0){
+	conteudo[i] = c;
+		i++;
+}
+
+close(fp);
+return 0; 
+}
+
+#include <stdio.h> 
+#include <stdlib.h> 
+#include "bib_arqs.h"
+
+int main(int argc, char *argv[]){
+	
+	char palavra[300];
+
+	le_arq_texto(argv[1], palavra);
+	printf("%s", palavra);
+
+	return 0;
+}
+
+Para compilar: 
+$ gcc -c le_arq_texto.c
+$ gcc main_5.c -o main_5
+$ ./main_5
 
 6. Crie um código em C que copia a funcionalidade básica do comando 'cat': escrever o conteúdo de um arquivo-texto no terminal. Reaproveite as funções já criadas nas 
 
