@@ -20,10 +20,10 @@ pid_t child_pid3;
 			printf("Este texto foi escrito no terminal pelo processo FILHO1 (ID = %d)\n", (int) getpid()); /*o processo filho tem um novo PID que pode ser verificado com getpid*/
 	child_pid2 = fork();
 		if (child_pid2 == 0)
-			printf("Este texto foi escrito no terminal pelo processo FILHO1 (ID = %d)\n", (int) getpid()); 
+			printf("Este texto foi escrito no terminal pelo processo FILHO2 (ID = %d)\n", (int) getpid()); 
 	child_pid3 = fork();
 		if (child_pid3 == 0)
-			printf("Este texto foi escrito no terminal pelo processo FILHO1 (ID = %d)\n", (int) getpid()); 
+			printf("Este texto foi escrito no terminal pelo processo FILHO3 (ID = %d)\n", (int) getpid()); 
 
 		else
 			printf ("ID Pai: %d\n", (int) getpid());
@@ -33,6 +33,8 @@ return 0;
 }
 Para compilar:
 $ gcc questao_01.c -o questao_01
+
+[nao foi testado]
 
 2. Crie um código em C que recebe o nome de diversos comandos pelos argumentos de entrada (argc e *argv[]), e executa cada um sequencialmente usando system(). Por exemplo, considerando que o código criado recebeu o nome de 'serial_system', e que ele foi executado na pasta '/Sistemas_Embarcados/Code/Aula_06', que contem diversos arquivos:
 	$ ./serial_system pwd echo ls echo cal
@@ -50,7 +52,7 @@ $ gcc questao_01.c -o questao_01
 	$ 26 27 28 29 30 31
 	$
   
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -76,6 +78,33 @@ questao_01.c questao_02.c questao_02.exe*
 
 3. Crie um código em C que recebe o nome de diversos comandos pelos argumentos de entrada (argc e *argv[]), e executa cada um usando fork() e exec().
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]){
+
+pid_t child_pid;
+child_pid = fork();
+int i;
+
+	char *arg_list[];
+
+		for (i = 1; i < argc; i++){
+			arg_list[i] = argv[i]; /*argv[i] é um comando*/
+		}
+
+	if (child_pid == 0){ /*criou-se um novo processo*/
+		execvp (arg[0], arg_list);	
+
+return 0;
+
+}
+
+[nao foi testado]
+
+
 4. Crie um código em C que gera três processos-filho usando o fork(), e que cada processo-filho chama a seguinte função uma vez:
 
 	int v_global = 0; // Variavel global para este exemplo
@@ -89,5 +118,96 @@ questao_01.c questao_02.c questao_02.exe*
 (Repare que a função Incrementa_Variavel_Global() recebe como entrada o ID do processo que a chamou.)
 Responda: a variável global 'v_global' foi compartilhada por todos os processos-filho, ou cada processo enxergou um valor diferente para esta variável?
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+
+int v_global = 0;
+void Incrementa_Variavel_Global(pid_t id_atual)
+	{
+		
+	v_global++;
+		
+		printf("ID do processo que executou esta funcao = %d\n", id_atual);
+	
+
+	
+		printf("v_global = %d\n", v_global);
+	
+return 0;
+}
+
+int main(){
+pid_t child_pid1;
+pid_t child_pid2;
+pid_t child_pid3;
+
+
+	child_pid1 = fork();
+		if (child_pid1 == 0)
+			Incrementa_Variavel_Global(getpid());
+	child_pid2 = fork();
+		if (child_pid2 == 0)
+			Incrementa_Variavel_Global(getpid());
+	child_pid3 = fork();
+		if (child_pid3 == 0)
+			Incrementa_Variavel_Global(getpid());
+
+		else
+			printf ("ID Pai: %d\n", (int) getpid());));
+
+return 0;
+
+}
+[nao foi testada]
+
 5. Repita a questão anterior, mas desta vez faça com que o processo-pai também chame a função Incrementa_Variavel_Global().
 Responda: a variável global 'v_global' foi compartilhada por todos os processos-filho e o processo-pai, ou cada processo enxergou um valor diferente para esta variável?
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+
+
+
+int v_global = 0;
+void Incrementa_Variavel_Global(pid_t id_atual)
+	{
+		
+	v_global++;
+		
+		printf("ID do processo que executou esta funcao = %d\n", id_atual);
+		
+		printf("v_global = %d\n", v_global);
+	
+return 0;
+}
+
+int main(){
+pid_t child_pid1;
+pid_t child_pid2;
+pid_t child_pid3;
+
+
+	child_pid1 = fork();
+		if (child_pid1 == 0)
+			void Incrementa_Variavel_Global(getpid());
+			
+	child_pid2 = fork();
+		if (child_pid2 == 0)
+			void Incrementa_Variavel_Global(getpid());
+	child_pid3 = fork();
+		if (child_pid3 == 0)
+			void Incrementa_Variavel_Global(getpid());
+		else
+			void Incrementa_Variavel_Global(getpid());
+
+return 0;
+
+}
+
+[nao foi testado]
