@@ -30,11 +30,12 @@ quando um software é desenvolvido com base em outro, já existente, sem a desco
   Permite executar um comando dentro de um programa, criando um subprocesso (processo filho). Função da biblioteca stdlib.h.
   Desvantagens:
   Dependende do sistema por criar um subprocesso; Suscetível a falha de execução.
+  O system costuma ser mais lento que fork/exec. Não é totalmente seguro. System espera o subprocesso parar para o processo parar (cascata). Processo simultâneo pai-filho.
   Vantagens:
 	(b) fork() e exec()?
   No Unix não há como criar um subprocesso, e sim uma cópia do processo atual. Fork é usado para criar essa cópia (processo filho).
   A função exec funciona para substituir o conteúdo desse novo processo por um novo programa.
-  
+  Vantagem: Enquanto o system usa um bash para executar o que é passado para o sistema e no forks usa um shell leve compatível com POSIX.
   Desvantagem: Deve manter o cuidado ao referenciar variáveis em processo filho e processo pai.
 
 4. É possível utilizar o exec() sem executar o fork() antes?
