@@ -1,0 +1,56 @@
+Data: 28/03/2017
+
+1. Como se utiliza o comando 'ps' para:
+	(a) Mostrar todos os processos rodando na máquina?
+    $ ps
+    
+	(b) Mostrar os processos de um usuário?
+    $ ps aux
+    
+    De um usuário específico:
+    $ ps -f -u Joyce
+    
+	(c) Ordenar todos os processos de acordo com o uso da CPU?
+  Classificar os processos em ordem de utilização da CPU (“pcpu”):
+    $ ps aux --sort=-pcpu
+  
+	(d) Mostrar a quanto tempo cada processo está rodando?
+    $ ps ax 
+    ou
+    $ ps aux
+  
+2. De onde vem o nome fork()?
+Em engenharia de software, uma bifurcação ou ramificação (em inglês: fork) acontece quando um desenvolvedor 
+(ou um grupo de desenvolvedores) inicia um projeto independente com base no código de um projeto já existente, ou seja, 
+quando um software é desenvolvido com base em outro, já existente, sem a descontinuidade deste último.
+
+3. Quais são as vantagens e desvantagens em utilizar:
+	(a) system()?
+  Vantagens:
+  Permite executar um comando dentro de um programa, criando um subprocesso (processo filho). Função da biblioteca stdlib.h.
+  Desvantagens:
+  Dependende do sistema por criar um subprocesso; Suscetível a falha de execução.
+  Vantagens:
+	(b) fork() e exec()?
+  No Unix não há como criar um subprocesso, e sim uma cópia do processo atual. Fork é usado para criar essa cópia (processo filho).
+  A função exec funciona para substituir o conteúdo desse novo processo por um novo programa.
+  
+  Desvantagem: Deve manter o cuidado ao referenciar variáveis em processo filho e processo pai.
+
+4. É possível utilizar o exec() sem executar o fork() antes?
+Não, é sequencial fork > exec. 
+Pois o fork é quem faz copia, o exec somente substitui o conteúdo se o novo processo (filho) tiver sido criado.
+
+5. Quais são as características básicas das seguintes funções:
+	(a) execp()?
+  Aceita que o nome ou procura do programa esteja na current path. 
+	(b) execv()?
+  Aceita que a lista de argumentos do novo programa seja nula.
+	(c) exece()?
+  Aceitam um argumento adicional.
+	(d) execvp()?
+  Aceitam que o nome do programa ou procura esteja no current path.
+	(e) execve()?
+  Aceita que a lista de argumentos do novo programa seja nula.
+	(f) execle()?
+    Aceitam um argumento adicional.
