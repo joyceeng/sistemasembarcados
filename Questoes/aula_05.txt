@@ -1,0 +1,55 @@
+Data: 23/03/2017
+
+1. Considerando a biblioteca-padrão da linguagem C, responda:
+	(a) Quais são as funções (e seus protótipos) para abrir e fechar arquivos?
+		fopen(nomedoarquivo) e fclose(nomedoarquivo)
+		FILE *nome do arquivo;
+		nome do arquivo = fopen ("nomedoarquivotexto.txt","w");
+		fclose(nomedoarquivo);
+	(b) Quais são as funções (e seus protótipos) para escrever em arquivos?
+
+		fprintf(nomedoarquivo,"Este e um arquivo chamado: %s", string);
+		
+	(c) Quais são as funções (e seus protótipos) para ler arquivos?
+		fscanf(p,"%c",&c); /*nome do arquivo, tipo do caractere e endereço do caracter*/
+		ou
+		fp = fopen ("nomedoarquivo.txt", "r");
+
+	(d) Quais são as funções (e seus protótipos) para reposicionar um ponteiro para arquivo?
+	fseek();
+	Protótipo:
+		fseek(nomedoarquivo, numerodebytes, SEEK_SET ou SEEK_CUR OU SEEK_END);
+	(e) Quais bibliotecas devem ser incluídas no código para poder utilizar as funções acima?
+	stdio.h
+	stdlib.h
+2. O que é a norma POSIX?
+É uma família de normas definidas pelo IEEE para a manutenção de compatibilidade entre sistemas operacionais.  POSIX define a interface de programação de aplicações (API), juntamente com shells de linha e comando e interfaces utilitárias, para compatibilidade de software com variantes de Unix e outros sistemas operacionais.
+
+3. Considerando a norma POSIX, responda:
+	(a) Quais são as funções (e seus protótipos) para abrir e fechar arquivos?
+	open
+	Protótipo:
+	int fd;
+	fd = open ("/diretorio/nomedoarquivo.txt", O_WRONLY);
+	close
+	Protótipo:
+	int fd;
+	close(fd);
+
+	(b) Quais são as funções (e seus protótipos) para escrever em arquivos?
+	Exemplo:
+		short siX16=0x7FFF; /*endereço do buffer*/
+		int res = write(fid, &siX16, sizeof(short)); /*fid e o nome do arquivo, endereço do buffer, tamanho da variável*/
+
+	(c) Quais são as funções (e seus protótipos) para ler arquivos?
+	read
+	Exemplo:
+		short siX16;
+		int res = read(fid, &siX16, sizeof(short));
+
+	(d) Quais são as funções (e seus protótipos) para reposicionar um ponteiro para arquivo?
+	lseek
+	Protótipo:
+	off_t lseek(int fd, off_t offset, int whence); /*offset (-1 se der erro), nome do arquivo, valor de offset (deve ser nro de bytes, SEEK_SET ou SEEK_CUR ou SEEK_END)*/
+	Exemplo:
+	(e) Quais bibliotecas devem ser incluídas no código para poder utilizar as funções acima?
