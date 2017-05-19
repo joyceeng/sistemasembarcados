@@ -1,0 +1,23 @@
+Data: 20/04/2017
+
+1. Defina qual modelo de Raspberry Pi você utilizará no projeto desta disciplina com o Raspberry Pi. Justifique sua escolha.
+RPi 3 Modelo B.
+
+2. Defina qual sistema operacional você utilizará no projeto desta disciplina com o Raspberry Pi. Justifique sua escolha.
+Raspbian. O sistema Raspbian é um SO desenvolvido pela própria empresa que criou o Raspberry Pi. Para a aplicação do atual projeto (porta GPIO, USB, Wifi, saída de áudio) o Raspbian
+conta com uma desktop que permite acesso remoto e conexão com internet.
+
+3. Defina de qual forma você instalará o sistema operacional escolhido. Escreva o passo-a-passo da instalação e forneça os links necessários para isto.
+Foi feito o download no site https://www.raspberrypi.org/downloads/raspbian/
+Logo após terminado o download foi formatado o cartão de memória e gravada a imagem do Raspbian no cartão SD no programa Win32DiskImager.
+Dessa forma, o Raspbian é pré-configurado e para utilizar o sistema, basta conectá-lo no RPi e ligar o monitor, teclado e mouse e configurar 
+o sistema para acesso remoto se necessário.
+
+4. Defina de qual forma você desenvolverá software para o Raspberry Pi no projeto desta disciplina. Escreva o passo-a-passo do desenvolvimento e forneça os links necessários para isto.
+O software desenvolvido será uma leitura de um teclado matricial desenvolvido manualmente com botões que funcionam como chaves.
+A leitura é feita a partir do código e enviada para a biblioteca text-to-speech, uma biblioteca muito utilizada para dar acessibilidade a deficientes visuais.
+O pacote eSpeak deve ser instalado para que o texto seja dito em linguagem português do Brasil.
+O som será transmitido na saída de áudio do RPi.
+
+
+
