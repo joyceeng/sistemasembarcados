@@ -1,7 +1,7 @@
 Data: 20/04/2017
 
 1. Defina qual modelo de Raspberry Pi você utilizará no projeto desta disciplina com o Raspberry Pi. Justifique sua escolha.
-RPi 3 Modelo B.
+RPi 3 Modelo B+.
 
 2. Defina qual sistema operacional você utilizará no projeto desta disciplina com o Raspberry Pi. Justifique sua escolha.
 Raspbian. O sistema Raspbian é um SO desenvolvido pela própria empresa que criou o Raspberry Pi. Para a aplicação do atual projeto (porta GPIO, USB, Wifi, saída de áudio) o Raspbian
