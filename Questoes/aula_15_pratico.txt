@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <wiringPi.h>
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.output)
+GPIO.setup(18, GPIO.input)
+
+void square_wave(pid_t child_pid){
+  	if (wiringPiSetup() == -1)
+    		exit(1);
+	for (int i = 1; i <= 64; i++){
+		for (int j = i * 2; j <= 64; j++){
+			GPIO.output (12, 1);	// HIGH
+			time.sleep (j/2);
+			GPIO.output (12, 0);	// LOW
+			time.sleep (j/2);
+  		}
+	}
+return 0;
+}
+
+int main(){
+
+pid_t child_pid;
+child_pid = fork();
+
+		if (GPIO.input(18))
+			square_wave(getpid(child_pid));
+		else
+			time.sleep(0.01); // wait 10 ms
+return 0;
+}
