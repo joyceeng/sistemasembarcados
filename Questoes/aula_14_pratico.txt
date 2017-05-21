@@ -52,9 +52,9 @@ int main (){
 
   for (;;){
 	GPIO.output (12, 1);	// HIGH
-	time.sleep (1);	// 1hz
+	time.sleep (0.5);	// 1hz
 	GPIO.output (12, 0);	// LOW
-	time.sleep (1);	// 1hz
+	time.sleep (0.5);	// 1hz
   }
   return 0;
 }
@@ -65,30 +65,6 @@ $ gcc pwm.c -o pwm -lwiringPi
 
 2. Generalize o código acima para qualquer frequência possível.
 
-#include <stdio.h>
-#include <wiringPi.h>
-
-import RPi.GPIO as GPIO
-import time
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.output) //pino 12 como saída GPIO18
- 
-int main (){
-  if (wiringPiSetup () == -1)
-    return 1;
-
-  for (int i = 1; i <= 192000000; i++){ // frequeza maxima pwmclk
-	GPIO.output (12, 1);	// HIGH
-	time.sleep (i);	// de 1 em 1 hz
-	GPIO.output (12, 0);	// LOW
-	time.sleep (i);	// de 1 em 1 hz
-  }
-  return 0;
-}
-
-Para compilar:	
-$ gcc pwm2.c -o pwm2 -lwiringPi
 
 3. Crie dois processos, e faça com que o processo-filho gere uma onda quadrada, enquanto o processo-pai lê um botão no GPIO, 
 aumentando a frequência da onda sempre que o botão for pressionado. 
@@ -109,14 +85,17 @@ GPIO.setup(18, GPIO.input)
 void square_wave(pid_t child_pid){
   	if (wiringPiSetup() == -1)
     		exit(1);
+int i = 1/2;
+GPIO.output(12, 1); // HIGH
+time.sleep (i);
+GPIO.output(12, 0); // LOW
 
-	for (int i = 1; i <= 64; i++){
-		for (int j = i * 2; j <= 64; j++){
+	for (i = 1/2; i <= 64; i++){
+		int j = i * 2)
 			GPIO.output (12, 1);	// HIGH
-			time.sleep (j/2);
+			time.sleep (j);
 			GPIO.output (12, 0);	// LOW
-			time.sleep (j/2);
-  		}
+			time.sleep (j);
 	}
 return 0;
 }
