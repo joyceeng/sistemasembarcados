@@ -44,7 +44,7 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT) //pino 12 como saída GPIO18
+GPIO.setup(12, GPIO.output) //pino 12 como saída GPIO18
  
 int main (){
   if (wiringPiSetup () == -1)
@@ -54,7 +54,7 @@ int main (){
 	GPIO.output (12, 1);	// HIGH
 	time.sleep (1);	// 1hz
 	GPIO.output (12, 0);	// LOW
-	time.sleep(1);	// 1hz
+	time.sleep (1);	// 1hz
   }
   return 0;
 }
@@ -72,20 +72,21 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT) //pino 12 como saída GPIO18
+GPIO.setup(12, GPIO.output) //pino 12 como saída GPIO18
  
 int main (){
   if (wiringPiSetup () == -1)
     return 1;
 
-  while (i <= 192000000){
+  for (int i = 1; i <= 192000000; i++){ // frequeza maxima pwmclk
 	GPIO.output (12, 1);	// HIGH
-	time.sleep (1 + i);	// de 1 em 1 hz
+	time.sleep (i);	// de 1 em 1 hz
 	GPIO.output (12, 0);	// LOW
-	time.sleep(1 + i);	// de 1 em 1 hz
+	time.sleep (i);	// de 1 em 1 hz
   }
   return 0;
 }
+
 Para compilar:	
 $ gcc pwm2.c -o pwm2 -lwiringPi
 
@@ -101,9 +102,14 @@ A frequência máxima é de 64 Hz, devendo retornar a 1 Hz se o botão for press
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.output)
+GPIO.setup(18, GPIO.input)
+
 void square_wave(pid_t child_pid){
   	if (wiringPiSetup() == -1)
     		exit(1);
+
 	for (int i = 1; i <= 64; i++){
 		for (int j = i * 2; j <= 64; j++){
 			GPIO.output (12, 1);	// HIGH
