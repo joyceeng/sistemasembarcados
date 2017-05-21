@@ -1,0 +1,128 @@
+Data: 25/04/2017
+
+1. Escreva um código em C para gerar uma onda quadrada de 1 Hz em um pino GPIO do Raspberry Pi.
+[não testado]
+
+// PWM frequency gpio = 19.2Mhz;
+// PWMClock =  4800;
+// Pulse frequency = PWM frequency/PWMClock;
+// Pulse frequency = 19.2Mhz/4800 = 4kHz;
+// Pulse frequency = 4kHz;
+// PWM Range = PWM frequency/ desired output frequency;
+// PWM Range = 4kHz/1hz = 4000;
+// desired output frequency = 4kHz/4000 = 1Hz;
+
+//****Para ajustar a uma frequência específica para o PWM:*****
+wmFrequency inHz= 19.2Hz/pwmClock/pwmRange
+
+#include <wiringPi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+ 
+int main (){
+
+  if (wiringPiSetupGpio() == -1)
+    exit(1);
+ 
+  pinMode(18,PWM_OUTPUT);
+  pwmSetMode(PWM_MODE_MS);
+  pwmSetClock(4800); // setar clock para 4800 é o mesmo que dividir o clock 19.2MHz para 4800 = 4kHz
+  pwmSetRange (4000);// range vai de 1 a 4096
+ 
+  for (;;) {
+     pwmWrite (18, 5); // gera o sinal de PWM no pino 18 
+     delay(1000);
+  }
+
+Código alternativo:
+
+#include <stdio.h>
+#include <wiringPi.h>
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.OUT) //pino 12 como saída GPIO18
+ 
+int main (){
+  if (wiringPiSetup () == -1)
+    exit (1);
+
+  for (;;){
+	GPIO.output (12, 1);	// HIGH
+	time.sleep (1);	// 1hz
+	GPIO.output (12, 0);	// LOW
+	time.sleep(1);	// 1hz
+  }
+  return 0;
+}
+
+Para compilar:	
+$ gcc pwm.c -o pwm -lwiringPi
+
+
+2. Generalize o código acima para qualquer frequência possível.
+
+#include <stdio.h>
+#include <wiringPi.h>
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.OUT) //pino 12 como saída GPIO18
+ 
+int main (){
+  if (wiringPiSetup () == -1)
+    return 1;
+
+  while (i <= 192000000){
+	GPIO.output (12, 1);	// HIGH
+	time.sleep (1 + i);	// de 1 em 1 hz
+	GPIO.output (12, 0);	// LOW
+	time.sleep(1 + i);	// de 1 em 1 hz
+  }
+  return 0;
+}
+Para compilar:	
+$ gcc pwm2.c -o pwm2 -lwiringPi
+
+3. Crie dois processos, e faça com que o processo-filho gere uma onda quadrada, enquanto o processo-pai lê um botão no GPIO, 
+aumentando a frequência da onda sempre que o botão for pressionado. 
+A frequência da onda quadrada deve começar em 1 Hz, e dobrar cada vez que o botão for pressionado. 
+A frequência máxima é de 64 Hz, devendo retornar a 1 Hz se o botão for pressionado novamente.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <wiringPi.h>
+
+import RPi.GPIO as GPIO
+import time
+
+void square_wave(pid_t child_pid){
+  	if (wiringPiSetup() == -1)
+    		exit(1);
+	for (int i = 1; i <= 64; i++){
+		for (int j = i * 2; j <= 64; j++){
+			GPIO.output (12, 1);	// HIGH
+			time.sleep (j/2);
+			GPIO.output (12, 0);	// LOW
+			time.sleep (j/2);
+  		}
+	}
+return 0;
+}
+
+int main(){
+
+pid_t child_pid;
+child_pid = fork();
+
+	while (1){
+		if (GPIO.input(18))
+		square_wave(getpid(child_pid));
+	}
+return 0;
+}
