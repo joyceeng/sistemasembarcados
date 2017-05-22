@@ -1,0 +1,39 @@
+Data: 11/05/2017
+
+1. Cite as vantagens e desvantagens das comunicação serial:
+	(a) Assíncrona (UART).
+Desvantagens:
+Quantidade maior de fios;
+Transmissão de dados com maior complexidade;
+Mais de um canal de comunicação.
+
+Vantagem:
+Maior velocidade de transmissão.
+
+	(b) SPI.
+
+Desvantagens:
+Por ser full duplex a informação que é mandada deve necessariamente devolver algo;
+Maior quantidade de pinos;
+Não há reconhecimento do escravo;
+Suporta apenas um mestre.
+
+Vantagens:
+Full duplex (troca de dados em ambas as direções);
+Não necessita resistores pull-up;
+Os escravos não precisam de um endereço único.
+
+2. Considere o caso em que a Raspberry Pi deve receber leituras analógico/digitais de um MSP430, e que a comunicação entre os dois é UART. 
+É tecnicamente possível que o MSP430 mande os resultados da conversão A/D a qualquer hora, ou ele deve aguardar a Raspberry Pi fazer um pedido ao MSP430? Por quê?
+É possível mandar os resultados, porém um dado deve ser enviado de retorno. Para comunicação UART isso sempre deve acontecer, mesmo que o valor de retorno seja qualquer valor.
+
+3. Considere o caso em que a Raspberry Pi deve receber leituras analógico/digitais de um MSP430, que a comunicação entre os dois seja SPI,
+e que o MSP430 seja o escravo. É tecnicamente possível que o MSP430 mande os resultados da conversão A/D a qualquer hora, ou ele deve aguardar a Raspberry Pi 
+fazer um pedido ao MSP430? Por quê?
+A comunicação entre mestre-escravo se dá por meio de um endereço. O mestre enviar esse endereço e o escravo correspondente reconhece.
+Uma vez reconhecida, os outros escravos apenas ignoram esses dados e continuam seus devidos processamentos.
+Caso o escravo queira enviar dados ao mestre, o mestre identificado, após o comando de solicitação de dados do mestre, envia os dados.
+
+4. Se o Raspberry Pi tiver de se comunicar com dois dispositivos via UART, como executar a comunicação com o segundo dispositivo?
+A comunicação UART se dá pelo Tx e Rx, se existem dois dispositivos, o Tx é conectado ao Rx do segundo dispositivo e o Tx deste é conectado ao Rx do outro.
+Por ser uma comunicação serial, há necessidade de transferir do primeiro dispositivo para o segundo.
