@@ -1,0 +1,190 @@
+Data: 18/05/2017
+
+1. Controle 6 LEDs de uma árvore de natal utilizando charlieplexing, de forma que um ser humano veja todos acesos ao mesmo tempo. Pisque os LEDs numa frequência de 100 Hz.
+
+#include "gpio_dev_mem.h"
+#include <time.h>
+
+void sair()
+{
+	GPIO_CLR = 1<<2;
+	GPIO_CLR = 1<<3;
+	GPIO_CLR = 1<<4;
+	exit(-1);
+
+}
+
+void charlie(int pin1, int pin2, int pin3)
+{
+
+
+	OUT_GPIO(pin1);  //pino q vai ser 1
+	OUT_GPIO(pin2);	//pino q vai ser 0
+	IN_GPIO(pin3); //pino q vai ser entrada
+
+	GPIO_SET = 1<<pin1;
+	usleep(5000);
+	GPIO_CLR = 1<<pin1;
+	GPIO_CLR = 1<<pin2;
+	GPIO_CLR = 1<<pin3;
+	//usleep(500000);
+	
+
+	
+}
+int main(int argc, char **argv)
+{
+
+	signal(SIGINT, sair);
+	//Chamando a funÃ§Ã£o de entrada e saÃ­da da biblioteca:
+	setup_io();
+	
+	while(1) {
+
+		//para o led1
+		charlie(3,4,2);
+		usleep(1700);
+
+		//para o led2
+		charlie(4,3,2);
+		usleep(1700);
+
+		//para o led3
+		charlie(2,3,4);
+		usleep(1700);
+
+		//para o led4
+		charlie(3,2,4);
+		usleep(1700);
+
+		//para o led5
+		charlie(2,4,3);
+		usleep(1700);
+
+		//para o led6
+		charlie(4,2,3);
+		usleep(1700);
+	}
+	
+  return 0;
+} 
+
+6. Considere dois MSP430, onde um deles faz leituras AD em 8 canais, e o outro escreve em 4 displays de 7 segmentos. Ambos estão conectados ao Raspberry Pi pelas portas SPI.
+
+	(a) Escreva a função em C para configurar a comunicação SPI no Raspberry Pi:
+
+		void Config_SPI(void);
+
+	(b) Escreva a função em C para ler uma conversão AD de 10 bits do MSP430 de um dos oito canais. O Raspberry Pi manda o número do canal para o MSP430, aguarda 100us, e lê os bytes menos e mais significativos da conversão, nessa ordem.
+
+		unsigned int AD_read_SPI(char channel);
+
+	(c) Escreva a função em C para escrever nos displays a leitura atual de tensão. Considere que o MSP430 mede tensões entre 0 e 3 V, e que o conversor AD é de 10 bits.
+
+		void Write_4_7seg_SPI(unsigned int value);
+
+	O MSP430 deverá receber a casas decimais do valor, da casa mais significativa para a menos significativa. Por exemplo, se value=1023, a Raspberry Pi deverá transmitir o vetor {3,0,0,0}.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <wiringPi.h>
+#include <string.h>
+//#include <wiringSerial.h>
+//#include <errno.h>
+
+// Este codigo requer a biblioteca wringPi. Compile-o usando
+//    gcc Ex2.c -lwiringPi -o Ex2.out
+
+int spi_fd1;
+int spi_fd2;
+int valor_volt[4];
+
+void ctrl_c(int sig)
+{
+	close(spi_fd1);
+	close(spi_fd2);
+	exit(-1);
+}
+
+void Config_spi(void){
+
+
+	if(wiringPiSetup() == -1)
+	{
+		puts("Erro em wiringPiSetup().");
+		return -1;
+	}
+	spi_fd1 = wiringPiSPISetup (0, 500000);
+
+	if(spi_fd1==-1)
+	{
+		puts("Erro abrindo a SPI. Garanta que ela nao");
+		puts("esteja sendo usada por outra aplicacao.");
+		return -1;
+	}
+	spi_fd2 = wiringPiSPISetup (1, 500000);
+	if(spi_fd2==-1)
+	{
+		puts("Erro abrindo a SPI. Garanta que ela nao");
+		puts("esteja sendo usada por outra aplicacao.");
+		return -1;
+	}
+}
+
+unsigned int AD_read_SPI(char channel){
+
+	char canal = channel;
+	char lsb= 0x01, msb = 0x02;
+	write(spi_fd1, &canal, sizeof(canal));
+	wiringPiSPIDataRW(0, &lsb, 1);
+	wiringPiSPIDataRW(0, &msb, 1);
+	strcat(msb, lsb);
+
+	int unsigned valor;
+	valor = atoi(msb);
+
+	return valor;		
+}
+
+void Write_4_7seg_SPI(unsigned int value){
+
+	float x;
+	
+	int i;
+	x = (3*value)/1023;
+	for(i = 0; i <4; i++){
+
+		valor_volt[i] = x;
+		x = (x- valor_volt[i])*10;
+	}	
+	
+}
+
+
+
+int main(void){
+	//unsigned char user_input=1, send_msp430;
+
+	signal(SIGINT,ctrl_c);
+
+	int canal;
+	unsigned int value;
+	
+	Config_spi();
+
+	for(canal = 0; canal <8; canal++)
+	{
+
+	value = AD_read_SPI(canal);
+
+	Write_4_7seg_SPI(value);
+
+	write(spi_fd2, valor_volt, sizeof(valor_volt));
+
+	sleep(5);
+	}
+	
+	close(spi_fd1);
+	close(spi_fd2);
+}
