@@ -1,0 +1,74 @@
+Data: 11/05/2017
+
+1. Considere um MSP430 sendo usado para leituras analógicas. O Raspberry Pi está conectado a ele via UART. O MSP430 foi programado para converter e enviar dados de 10 bits a cada 10 ms. Escreva o código para o Raspberry Pi receber estes dados, e cada 1 segundo apresentar no terminal a média das últimas 100 amostras.
+
+2. Considere um MSP430 sendo usado para leituras analógicas. O Raspberry Pi está conectado a ele via SPI, e é o mestre. O MSP430 foi programado para funcionar da seguinte forma:
+
+	I. Receber o byte 0x55 e enviar o byte 0xAA, o que indica o começo de conversão. 
+	II. 100us depois, o MSP430 recebe os bytes 0x01 e 0x02, e envia o byte menos significativo e o mais significativo da conversão de 10 bits, nesta ordem.
+ 
+Escreva o código para o Raspberry Pi executar este protocolo, de forma a obter conversões a cada 10 ms. A cada 1 segundo ele deve apresentar no terminal a média das últimas 100 amostras.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <wiringPi.h>
+//#include <wiringSerial.h>
+//#include <errno.h>
+
+// Este codigo requer a biblioteca wringPi. Compile-o usando
+//    gcc Ex2.c -lwiringPi -o Ex2.out
+
+int spi_fd;
+void ctrl_c(int sig)
+{
+	close(spi_fd);
+	exit(-1);
+}
+
+int main(void)
+{
+	unsigned char user_input=1, send_msp430;
+
+	signal(SIGINT, ctrl_c);
+	if(wiringPiSetup() == -1)
+	{
+		puts("Erro em wiringPiSetup().");
+		return -1;
+	}
+	spi_fd = wiringPiSPISetup (0, 500000);
+	if(spi_fd==-1)
+	{
+		puts("Erro abrindo a SPI. Garanta que ela nao");
+		puts("esteja sendo usada por outra aplicacao.");
+		return -1;
+	}
+	while(1){
+			
+			char inicio = 0x55;
+			char inicio_ok = 0xAA; 
+			wiringPiSPIDataRW(0, &inicio, 1);
+			if(inicio = inicio_ok)
+			{
+			usleep(100);
+			for (j=0; j<100; j++) {
+				char dado1  = 0x01;
+				wiringPiSPIDataRW(0, &dado1, 1);
+				char dado2  = 0x02;
+				wiringPiSPIDataRW(0, &dado2, 1);
+				strcat(dado2,dado1);  	//estou juntando o MSB + LSB - o result fica no dado2
+				soma += dado2;
+				usleep(10000);
+
+			}
+			media = soma/100;
+			printf("media desse um segundo %d", media);	
+	
+			
+			}
+			
+		
+		puts("");
+	}
+	close(spi_fd);
+}
