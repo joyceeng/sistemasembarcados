@@ -42,3 +42,5 @@ try:
                         GPIO.output(COL[j], 1)
 except KeyboardInterrupt:
         GPIO.cleanup()
+
+ 
